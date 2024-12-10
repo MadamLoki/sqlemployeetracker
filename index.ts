@@ -1,6 +1,6 @@
-const inquirer = require('inquirer');
-const db = require('./db/db');
-const { table } = require('console');
+import inquirer from 'inquirer';
+import db from './src/connection.ts';
+
 
 class EmployeeTracker {
     async start() {
