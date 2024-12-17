@@ -54,9 +54,7 @@ Employee Manager is a command-line interface (CLI) application that allows busin
 
 To start the application:
 
-    ```bash
     npm start
-    ```
 
 ## Features
 
