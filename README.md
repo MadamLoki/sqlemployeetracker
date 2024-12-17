@@ -100,7 +100,7 @@ To start the application:
 
 ## Screenshots
 
-[Add your application screenshots here]
+![CLI Interface](asset/image.png)
 
 ## Contributing
 
