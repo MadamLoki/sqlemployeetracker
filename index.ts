@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import db from './src/connection.ts';
+import { db } from './src/connection';
 
 
 class EmployeeTracker {
@@ -57,16 +57,31 @@ class EmployeeTracker {
 
     async viewDepartments() {
         const departments = await db.viewAllDepartments();
+        if (departments.length === 0) {
+            console.log('No departments found');
+            console.log('Departments:', departments);
+            return;
+        };
         console.table(departments);
     }
 
     async viewRoles() {
         const roles = await db.viewAllRoles();
+        if (roles.length === 0) {
+            console.log('No roles found');
+            console.log('Roles:', roles);
+            return;
+        };
         console.table(roles);
     }
 
     async viewEmployees() {
         const employees = await db.viewAllEmployees();
+        if (employees.length === 0) {
+            console.log('No employees found');
+            console.log('Employees:', employees);
+            return;
+        };
         console.table(employees);
     }
 
@@ -81,7 +96,11 @@ class EmployeeTracker {
         ]);
 
         await db.addDepartment(name);
-        console.log(`Added ${name} to departments`);
+        if (name === 'Exit') 
+            return;
+        else (
+            console.log(`Added ${name} to departments`)
+        );
     }
 
     async addRole() {
@@ -98,7 +117,7 @@ class EmployeeTracker {
                 type: 'number',
                 name: 'salary',
                 message: 'What is the salary for this role?',
-                validate: input => input > 0 ? true : 'Salary must be greater than 0'
+                validate: input => input && input > 0 ? true : 'Salary must be greater than 0'
             },
             {
                 type: 'list',
@@ -112,12 +131,24 @@ class EmployeeTracker {
         ]);
 
         await db.addRole(title, salary, departmentId);
-        console.log(`Added ${title} role`);
+        if (title === 'Exit') 
+            return;
+        else (
+            console.log(`Added ${title} role`)
+        );
     }
 
     async addEmployee() {
         const roles = await db.getRolesForSelection();
         const employees = await db.getEmployeesForSelection();
+
+        if (roles.length === 0) {
+            console.log('No roles found. Please add a role before adding an employee');
+            return;
+        } else if (employees.length === 0) {
+            console.log('No employees found. Please add an employee before adding a manager');
+            return;
+        }
         
         const { firstName, lastName, roleId, managerId } = await inquirer.prompt([
             {
@@ -156,12 +187,24 @@ class EmployeeTracker {
         ]);
 
         await db.addEmployee(firstName, lastName, roleId, managerId);
-        console.log(`Added ${firstName} ${lastName} to employees`);
+        if (firstName === 'Exit') 
+            return;
+        else (
+            console.log(`Added ${firstName} ${lastName} to employees`)
+        );
     }
 
     async updateEmployeeRole() {
         const employees = await db.getEmployeesForSelection();
         const roles = await db.getRolesForSelection();
+
+        if (employees.length === 0) {
+            console.log('No employees found. Please add an employee before updating their role');
+            return;
+        } else if (roles.length === 0) {
+            console.log('No roles found. Please add a role before updating an employee\'s role');
+            return;
+        }
 
         const { employeeId, roleId } = await inquirer.prompt([
             {
@@ -185,10 +228,17 @@ class EmployeeTracker {
         ]);
 
         await db.updateEmployeeRole(employeeId, roleId);
-        console.log('Updated employee\'s role');
+        if (employeeId === 'Exit') 
+            return;
+        else (roleId === 'Exit')
+            console.log('Role not updated')
+            console.log(`Updated role for employee with ID ${employeeId}`)
+            return;        
     }
 }
 
 // Start the application
 const app = new EmployeeTracker();
 app.start().catch(console.error);
+
+export { db } from './src/connection';

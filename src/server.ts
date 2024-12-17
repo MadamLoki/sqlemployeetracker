@@ -1,7 +1,7 @@
 import express from 'express';
-import { pool, connectToDb } from './connection.js';
+import { pool, connectTodb } from './connection.js';
 
-await connectToDb();
+await connectTodb();
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Hardcoded query: DELETE FROM course_names WHERE id = 3;
-pool.query(``, [3], (err: Error) => {
+pool.query(``, [3], (err: Error, result: any) => {
     if (err) {
         console.log(err);
     } else {
@@ -19,7 +19,7 @@ pool.query(``, [3], (err: Error) => {
 });
 
 // Query database
-pool.query('SELECT * FROM course_names', (err: Error) => {
+pool.query('SELECT * FROM course_names', (err: Error, result: any) => {
     if (err) {
         console.log(err);
     } else if (result) {

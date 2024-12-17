@@ -1,6 +1,19 @@
 {
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "inquirer": "^12.2.0",
-    "pg": "^8.13.1"
-  }
+    "pg": "^8.13.1",
+    "typescript": "^5.7.2"
+  },
+  "name": "sqlemployeetracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
