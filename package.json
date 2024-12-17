@@ -2,19 +2,30 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "figlet": "^1.8.0",
     "inquirer": "^12.2.0",
     "pg": "^8.13.1",
-    "typescript": "^5.7.2"
+    "tsc": "^2.0.4"
   },
   "name": "sqlemployeetracker",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc && node index.js",
+    "start": "ts-node index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/figlet": "^1.7.0",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.11.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
   "description": ""
 }
